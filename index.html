@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Modern Tic Tac Toe</title>
+<title>Premium Tic Tac Toe</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,11 +14,20 @@
 
 <body>
 
-<div class="game-container">
+<div class="container">
 
 <h1>Tic Tac Toe</h1>
 
-<div id="status">Player X's Turn</div>
+<div class="turn" id="turnText">Select who starts</div>
+
+<div class="controls">
+
+<button onclick="selectStarter('X')">X First</button>
+<button onclick="selectStarter('O')">O First</button>
+<button onclick="startGame()">Start Game</button>
+<button onclick="newGame()">New Game</button>
+
+</div>
 
 <div class="board">
 
@@ -34,12 +43,7 @@
 
 </div>
 
-<div class="buttons">
-
-<button id="restartBtn">Restart Game</button>
-<button id="newGameBtn">New Game</button>
-
-</div>
+<div class="result" id="resultText"></div>
 
 </div>
 

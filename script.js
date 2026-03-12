@@ -1,16 +1,16 @@
 const cells = document.querySelectorAll(".cell")
-const statusText = document.getElementById("status")
 
-const restartBtn = document.getElementById("restartBtn")
-const newGameBtn = document.getElementById("newGameBtn")
+const turnText = document.getElementById("turnText")
+
+const resultText = document.getElementById("resultText")
 
 let board = ["","","","","","","","",""]
 
-let currentPlayer = "X"
+let currentPlayer = ""
 
-let running = true
+let running = false
 
-const winConditions = [
+const winPatterns = [
 
 [0,1,2],
 [3,4,5],
@@ -23,69 +23,71 @@ const winConditions = [
 
 ]
 
-cells.forEach(cell => cell.addEventListener("click",cellClicked))
+cells.forEach(cell => cell.addEventListener("click",cellClick))
 
-restartBtn.addEventListener("click",restartGame)
+function selectStarter(player){
 
-newGameBtn.addEventListener("click",newGame)
+currentPlayer = player
 
-function cellClicked(){
+turnText.textContent = player + " will start"
 
-const index = this.dataset.index
+}
 
-if(board[index] !== "" || !running){
+function startGame(){
+
+if(currentPlayer === ""){
+
+alert("Select who starts first")
 
 return
 
 }
 
+running = true
+
+turnText.textContent = currentPlayer + " Turn"
+
+}
+
+function cellClick(){
+
+if(!running) return
+
+const index = this.dataset.index
+
+if(board[index] !== "") return
+
 board[index] = currentPlayer
 
 this.textContent = currentPlayer
+
+this.classList.add(currentPlayer)
 
 checkWinner()
 
 }
 
-function changePlayer(){
-
-currentPlayer = (currentPlayer === "X") ? "O" : "X"
-
-statusText.textContent = `Player ${currentPlayer}'s Turn`
-
-}
-
 function checkWinner(){
 
-let roundWon = false
+let win = false
 
-for(let i=0;i<winConditions.length;i++){
+winPatterns.forEach(pattern=>{
 
-const condition = winConditions[i]
+const a = board[pattern[0]]
+const b = board[pattern[1]]
+const c = board[pattern[2]]
 
-const a = board[condition[0]]
-const b = board[condition[1]]
-const c = board[condition[2]]
+if(a && a === b && b === c){
 
-if(a=="" || b=="" || c=="") continue
+win = true
 
-if(a==b && b==c){
+}
 
-roundWon = true
-
-condition.forEach(index=>{
-cells[index].classList.add("win")
 })
 
-break
+if(win){
 
-}
-
-}
-
-if(roundWon){
-
-statusText.textContent = `🎉 Player ${currentPlayer} Wins!`
+resultText.textContent = "🏆 " + currentPlayer + " Wins!"
 
 running = false
 
@@ -95,7 +97,7 @@ return
 
 if(!board.includes("")){
 
-statusText.textContent = "It's a Draw!"
+resultText.textContent = "It's a Draw!"
 
 running = false
 
@@ -103,29 +105,30 @@ return
 
 }
 
-changePlayer()
+currentPlayer = currentPlayer === "X" ? "O" : "X"
 
-}
-
-function restartGame(){
-
-board = ["","","","","","","","",""]
-
-cells.forEach(cell=>{
-cell.textContent=""
-cell.classList.remove("win")
-})
-
-currentPlayer="X"
-
-running=true
-
-statusText.textContent="Player X's Turn"
+turnText.textContent = currentPlayer + " Turn"
 
 }
 
 function newGame(){
 
-restartGame()
+board = ["","","","","","","","",""]
+
+cells.forEach(cell=>{
+
+cell.textContent = ""
+
+cell.classList.remove("X","O")
+
+})
+
+currentPlayer = ""
+
+running = false
+
+turnText.textContent = "Select who starts"
+
+resultText.textContent = ""
 
 }
