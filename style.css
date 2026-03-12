@@ -112,12 +112,11 @@ transition:.3s;
 .cell:hover{
 
 background:#46596c;
-
 transform:scale(1.05);
 
 }
 
-/* X neon */
+/* X Neon */
 
 .cell.X{
 
@@ -129,7 +128,7 @@ text-shadow:
 
 }
 
-/* O neon */
+/* O Neon */
 
 .cell.O{
 
@@ -138,6 +137,34 @@ color:#00d9ff;
 text-shadow:
 0 0 10px #00d9ff,
 0 0 20px #00d9ff;
+
+}
+
+/* Winning cells */
+
+.win{
+
+background:#06ffa5;
+
+color:black;
+
+box-shadow:
+0 0 15px #06ffa5,
+0 0 25px #06ffa5;
+
+animation: glow 1s infinite alternate;
+
+}
+
+@keyframes glow{
+
+from{
+box-shadow:0 0 10px #06ffa5;
+}
+
+to{
+box-shadow:0 0 25px #06ffa5;
+}
 
 }
 
@@ -152,7 +179,7 @@ color:#06ffa5;
 
 }
 
-/* Controls */
+/* Control buttons */
 
 .controls{
 

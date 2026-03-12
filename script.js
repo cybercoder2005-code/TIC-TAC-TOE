@@ -51,7 +51,9 @@ function checkWinner(){
 
 let win = false
 
-winPatterns.forEach(pattern=>{
+for(let i=0;i<winPatterns.length;i++){
+
+const pattern = winPatterns[i]
 
 const a = board[pattern[0]]
 const b = board[pattern[1]]
@@ -61,9 +63,15 @@ if(a && a===b && b===c){
 
 win = true
 
+pattern.forEach(index=>{
+cells[index].classList.add("win")
+})
+
+break
+
 }
 
-})
+}
 
 if(win){
 
@@ -93,10 +101,11 @@ board = ["","","","","","","","",""]
 
 cells.forEach(cell=>{
 cell.textContent=""
-cell.classList.remove("X","O")
+cell.classList.remove("X","O","win")
 })
 
 resultText.textContent=""
+
 running = true
 
 }
@@ -104,7 +113,10 @@ running = true
 function newGame(){
 
 restart()
+
 currentPlayer=""
+running=false
+
 turnText.textContent="Select who starts"
 
 } 
