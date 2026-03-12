@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Premium Tic Tac Toe</title>
+<title>Neon Tic Tac Toe</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,18 +14,16 @@
 
 <body>
 
-<div class="container">
+<div class="game">
 
-<h1>Tic Tac Toe</h1>
+<h1 class="title">Tic Tac Toe</h1>
 
-<div class="turn" id="turnText">Select who starts</div>
+<div id="turn">Select who starts</div>
 
-<div class="controls">
+<div class="starter">
 
-<button onclick="selectStarter('X')">X First</button>
-<button onclick="selectStarter('O')">O First</button>
-<button onclick="startGame()">Start Game</button>
-<button onclick="newGame()">New Game</button>
+<button onclick="setStarter('X')">X First</button>
+<button onclick="setStarter('O')">O First</button>
 
 </div>
 
@@ -43,11 +41,18 @@
 
 </div>
 
-<div class="result" id="resultText"></div>
+<div id="result"></div>
+
+<div class="controls">
+
+<button onclick="restart()">Restart</button>
+<button onclick="newGame()">New Game</button>
+
+</div>
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
-</html>
+</html> 

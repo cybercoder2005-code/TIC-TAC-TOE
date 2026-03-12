@@ -1,13 +1,9 @@
 const cells = document.querySelectorAll(".cell")
-
-const turnText = document.getElementById("turnText")
-
-const resultText = document.getElementById("resultText")
+const turnText = document.getElementById("turn")
+const resultText = document.getElementById("result")
 
 let board = ["","","","","","","","",""]
-
 let currentPlayer = ""
-
 let running = false
 
 const winPatterns = [
@@ -23,33 +19,18 @@ const winPatterns = [
 
 ]
 
-cells.forEach(cell => cell.addEventListener("click",cellClick))
+cells.forEach(cell => cell.addEventListener("click",clickCell))
 
-function selectStarter(player){
+function setStarter(player){
 
 currentPlayer = player
-
-turnText.textContent = player + " will start"
-
-}
-
-function startGame(){
-
-if(currentPlayer === ""){
-
-alert("Select who starts first")
-
-return
-
-}
-
 running = true
 
-turnText.textContent = currentPlayer + " Turn"
+turnText.textContent = player + "'s Turn"
 
 }
 
-function cellClick(){
+function clickCell(){
 
 if(!running) return
 
@@ -60,7 +41,6 @@ if(board[index] !== "") return
 board[index] = currentPlayer
 
 this.textContent = currentPlayer
-
 this.classList.add(currentPlayer)
 
 checkWinner()
@@ -77,7 +57,7 @@ const a = board[pattern[0]]
 const b = board[pattern[1]]
 const c = board[pattern[2]]
 
-if(a && a === b && b === c){
+if(a && a===b && b===c){
 
 win = true
 
@@ -88,9 +68,7 @@ win = true
 if(win){
 
 resultText.textContent = "🏆 " + currentPlayer + " Wins!"
-
 running = false
-
 return
 
 }
@@ -98,37 +76,35 @@ return
 if(!board.includes("")){
 
 resultText.textContent = "It's a Draw!"
-
 running = false
-
 return
 
 }
 
 currentPlayer = currentPlayer === "X" ? "O" : "X"
 
-turnText.textContent = currentPlayer + " Turn"
+turnText.textContent = currentPlayer + "'s Turn"
+
+}
+
+function restart(){
+
+board = ["","","","","","","","",""]
+
+cells.forEach(cell=>{
+cell.textContent=""
+cell.classList.remove("X","O")
+})
+
+resultText.textContent=""
+running = true
 
 }
 
 function newGame(){
 
-board = ["","","","","","","","",""]
+restart()
+currentPlayer=""
+turnText.textContent="Select who starts"
 
-cells.forEach(cell=>{
-
-cell.textContent = ""
-
-cell.classList.remove("X","O")
-
-})
-
-currentPlayer = ""
-
-running = false
-
-turnText.textContent = "Select who starts"
-
-resultText.textContent = ""
-
-}
+} 
